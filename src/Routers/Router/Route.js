@@ -7,9 +7,11 @@ import Register from "../../pages/Registration/Register";
 import Login from "../../pages/Login/Login";
 import MyProfile from "../../pages/MyProfile/MyProfile";
 import Chat from "../../pages/Chat/Chat";
-import TeamManagerDashboard from "../../pages/TeamManagerDashboard/TeamManagerDashboard";
+
 import Requests from "../../pages/Requests/Requests";
 import TeamProfile from "../../pages/TeamProfile/TeamProfile";
+import PlayerTeamProfile from "../../pages/TeamProfile/PlayerTeamProfile";
+import PlayerMyProfile from "../../pages/MyProfile/PlayerMyProfile";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
   export const router = createBrowserRouter([
       {
@@ -26,8 +28,16 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
             element: <MyProfile></MyProfile>
           },
           {
+            path: "/PlayerMyProfile",
+            element: <PlayerMyProfile></PlayerMyProfile>
+          },
+          {
             path: "/TeamProfile",
             element: <TeamProfile></TeamProfile>,
+          },
+          {
+            path: "/PlayerTeamProfile",
+            element: <PlayerTeamProfile></PlayerTeamProfile>,
           },
           {
             path: "/Chat",

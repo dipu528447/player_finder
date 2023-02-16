@@ -21,13 +21,14 @@ const Navbar = () => {
                             Profile
                             <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
                         </a>
-                        <ul className="p-2">
-                            <li><Link to='/TeamProfile'>Team Profile</Link></li>
-                            <li><Link to='/MyProfile'>My Profile</Link></li>
+                        <ul className="p-2">                        
+                            <li><Link to={user.userType=='Team Manager'?'/TeamProfile':'/PlayerTeamProfile'}>Team Profile</Link></li>
+                            <li><Link to={user.userType=='Team Manager'?'/MyProfile':'/PlayerMyProfile'}>My Profile</Link></li>
                         </ul>
                         </li>
                         <li><Link to='/Chat'>Chat</Link></li>
-                        <li><Link to='/requests'>Requests</Link></li>
+                        {console.log(user.userType)}
+                        {user.userType=='Player' && <li><Link to='/requests'>Requests</Link></li>}
                     </ul>
                     </div>
                     <a className="btn btn-ghost normal-case text-xl">Player Finder Application</a>
@@ -40,14 +41,20 @@ const Navbar = () => {
                         Profile
                         <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z"/></svg>
                         </a>
-                        <ul className="p-2">
-                        <li><Link to='/TeamProfile'>Team Profile</Link></li>
-                        <li><Link to='/MyProfile'>My Profile</Link></li>
+                        <ul className="p-2" data-theme="">
+                        
+                            <li><Link to={user.userType=='Team Manager'?'/TeamProfile':'/PlayerTeamProfile'}>Team Profile</Link></li>
+                            <li><Link to={user.userType=='Team Manager'?'/MyProfile':'/PlayerMyProfile'}>My Profile</Link></li>
                         </ul>
                     </li>
                     <li><Link to='/Chat'>Chat</Link></li>
-                    <li><Link to='/requests'>Requests</Link></li>
+                    {user.userType=='Player' && <li><Link to='/requests'>Requests</Link></li>}
                     </ul>
+                    <div className="avatar online mx-2">
+                        <div className="w-12 rounded-full">
+                            <img src={user?.photoURL?user.photoURL:"https://placeimg.com/192/192/people"} />
+                        </div>
+                    </div>
                     <button className="btn" 
                     onClick={()=>{
                         setUser()

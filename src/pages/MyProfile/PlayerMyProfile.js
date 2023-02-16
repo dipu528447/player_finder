@@ -1,9 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import React, { useContext, useEffect, useState } from 'react';
 import { db, storage } from './../../firebase'
 import { addDoc, serverTimestamp, collection, updateDoc, doc } from 'firebase/firestore'
 import { UserContext } from '../../App';
-const MyProfile = () => {
+
+const PlayerMyProfile = () => {
     const [user,setuser]=useContext(UserContext)
     const initialState = {
         displayName: "",
@@ -12,12 +13,16 @@ const MyProfile = () => {
         permanent_address: "",
         nid: "",
         contact: "",
+        scores: "",
+        skill: "",
+        playedGames:"",
+        expectedPrice:"",
         password:"",
         id:user.id,
         photoURL: ""
     }
     const [data, setData] = useState(initialState);
-    const { displayName, email, permanent_address, present_address, contact, nid ,password,id,photoURL} = data;
+    const { displayName, email, permanent_address, present_address, contact, nid ,password,id,photoURL,scores,skill, playedGames,expectedPrice} = data;
     const [file, setFile] = useState(null);
     const [progress, setProgress] = useState(null);
     const [errors, setErrors] = useState({});
@@ -99,17 +104,46 @@ const MyProfile = () => {
                         </label>
                         <label className="input-group m-2">
                             <span className='w-1/4'>present Address</span>
-                            <input type="text" placeholder={ "Your Present Address"}  className="input input-bordered w-full" required name='present_address' />
+                            <input type="text" placeholder={ "Your Present Address"}  className="input input-bordered w-full" 
+                            required name='present_address' onChange={handleChange}/>
                         </label>
                         <label className="input-group m-2">
                             <span className='w-1/4'>Permanent Address</span>
-                            <input type="text" placeholder={"Your Permanent Address"}  className="input input-bordered w-full" name='permanent_address' required />
+                            <input type="text" placeholder={"Your Permanent Address"}  className="input input-bordered w-full" name='permanent_address'
+                            onChange={handleChange} required />
                         </label>
                         <label className="input-group m-2">
                             <span className='w-1/4'>Contact</span>
                             <input type="number" placeholder={ "Your Contact Number"} className="input input-bordered w-full"  name='contact'
                             onChange={handleChange} required />
                         </label>
+                        
+                        <label className="input-group m-2">
+                            <span className='w-1/4'>Score</span>
+                            <input type="number" placeholder={`Your ${user.gamesType=="Cricket"?"Run":"Goal "} Number`} className="input input-bordered w-full"  name='scores'
+                            onChange={handleChange} required />
+                        </label>
+                        
+                        <label className="input-group m-2">
+                            <span className='w-1/4'>Skill</span>
+                            <input type="text" placeholder={ "Describe your skills"} className="input input-bordered w-full"  name='skill'
+                            onChange={handleChange} required />
+                        </label>
+                        
+                        <label className="input-group m-2">
+                            <span className='w-1/4'>Played Games</span>
+                            <input type="number" placeholder={ "Please enter the number of how many games you have played?"} className="input input-bordered w-full"  name='playedGames'
+                            onChange={handleChange} required />
+                        </label>
+
+                        
+                        <label className="input-group m-2">
+                            <span className='w-1/4'>Expected Price</span>
+                            <input type="number" placeholder={ "Your Expected Price"} className="input input-bordered w-full"  name='expectedPrice'
+                            onChange={handleChange} required />
+                        </label>
+
+                        
                         <label className="input-group m-2">
                             <span className='w-1/4'>Change Profile Image</span>
                             <input type="file"  className="input w-full" name='photoURL'  onChange={(e) => setFile(e.target.files[0])} required />
@@ -123,4 +157,4 @@ const MyProfile = () => {
     );
 };
 
-export default MyProfile;
+export default PlayerMyProfile;

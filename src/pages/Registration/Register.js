@@ -66,6 +66,13 @@ const Register = () => {
                 email, name, password,userType,gamesType,photoURL:photo,
                 timeStamp: serverTimestamp(),
             });
+            if(userType=='Team Manager'){
+                await addDoc(collection(db, 'team'), {
+                    "TeamManagerEmail":email,
+                    gamesType, 
+                    timeStamp: serverTimestamp(),
+                });
+            }
             verifyEmail();
         }
         catch(err){
